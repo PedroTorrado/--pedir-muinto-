@@ -1,0 +1,78 @@
+#include <Arduino.h>
+#include <Servo.h>
+
+Servo b; //Base servo defined
+Servo s; //Shoulder servo defined
+Servo e; //Elbow servo defined
+Servo w; //Wrist servo defined
+Servo h; //Hand servo defined
+
+int count = 1;
+
+int move(int pot, int servo_angle);
+int b1 = A2, b1_value = 0, b1_angle = 0;// b1
+int b2 = A3, b2_value = 0, b2_angle = 0;// b2
+int b3 = A4, b3_value = 0, b3_angle = 0;// b3
+int b4 = A5, b4_value = 0, b4_angle = 0;// b4
+
+void setup() {
+  Serial.begin(9600);
+
+  b.attach(8);
+  s.attach(7);
+  e.attach(6);
+  w.attach(5);
+  h.attach(4);
+
+  b.write(0);
+  s.write(0);
+  e.write(0);
+  w.write(0);
+  h.write(0);
+
+  pinMode(b1, INPUT);
+  pinMode(b2, INPUT);
+  pinMode(b3, INPUT);
+  pinMode(b4, INPUT);
+
+}
+
+void loop() {
+  b1_value = digitalRead(b1);
+  b2_value = digitalRead(b2);
+  b3_value = digitalRead(b3);
+  b4_value = digitalRead(b4);
+
+  if (b1_value != 0){
+    Serial.println("b1 ON");
+    b1_angle = b1_angle + 1;
+  	delay(10);
+    b2_angle = b1_angle;
+    b.write(b1_angle);
+  }
+
+  if (b2_value != 0){
+    Serial.println("b2 ON");
+    b2_angle = b2_angle - 1;
+  	delay(10);
+    b1_angle = b1_angle;
+    b.write(b2_angle);
+  }
+
+  if (b3_value != 0){
+    Serial.println("b3 ON");
+  	delay(10);
+    b3_angle = b3_angle + 1;
+    b4_angle = b3_angle;
+    s.write(b3_angle);
+  }
+
+  if (b4_value != 0){
+    Serial.println("b4 ON");
+  	delay(10);
+    b4_angle = b4_angle - 1;
+    b3_angle = b4_angle;
+    s.write(b4_angle);
+  }
+
+}
