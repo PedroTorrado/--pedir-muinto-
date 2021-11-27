@@ -1,6 +1,10 @@
 #include <Arduino.h>
 #include <Servo.h>
 
+// pins A2 through A5 connected to respective buttons
+// servos connected to pins D4 through to D8 in the same order as in void Setup
+// Right now this program only controlles 2 of the 5 servos controling only the first joint of 2 (or 3 if counting the hand)
+
 Servo b; //Base servo defined
 Servo s; //Shoulder servo defined
 Servo e; //Elbow servo defined
